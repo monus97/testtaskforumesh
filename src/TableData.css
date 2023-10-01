@@ -1,0 +1,5 @@
+.selected {
+    background-color: #007bff; /* Blue background color, you can change it to your desired color */
+    color: white; /* Text color for selected row */
+    cursor: pointer; /* Change cursor to pointer for better interaction */
+  }
