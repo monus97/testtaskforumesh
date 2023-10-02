@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Table } from "react-bootstrap";
-import "./TableData.css"; // Import your CSS file
+
 
 const TableData = () => {
   const [firstData, setFirstData] = useState([1, 2, 3, 4, 5]);
@@ -11,8 +11,11 @@ const TableData = () => {
     if (selectedItem !== null) {
       const newFirstData = firstData.filter((item) => item !== selectedItem);
       setFirstData(newFirstData);
-      setSecondData([...secondData, selectedItem]);
-      setSelectedItem(null); // Reset selected item
+      setSecondData([selectedItem, ...secondData]);
+      setSelectedItem(null);
+    } else if (selectedItem === null) {
+      setSecondData([ ...firstData,...secondData]);
+      setFirstData([]);
     }
   };
 
@@ -20,15 +23,18 @@ const TableData = () => {
     if (selectedItem !== null) {
       const newSecondData = secondData.filter((item) => item !== selectedItem);
       setSecondData(newSecondData);
-      setFirstData([...firstData, selectedItem]);
-      setSelectedItem(null); // Reset selected item
+      setFirstData([selectedItem, ...firstData]);
+      setSelectedItem(null);
+    } else if (selectedItem === null) {
+      setFirstData([...firstData, ...secondData]);
+      setSecondData([]);
     }
   };
 
   return (
     <div className="container div_main">
       <div>
-        <Table striped bordered hover>
+        <Table  bordered hover>
           <thead>
             <tr>
               <th>#</th>
@@ -36,16 +42,19 @@ const TableData = () => {
             </tr>
           </thead>
           <tbody>
-            {firstData?.map((data, i) => (
+            {firstData?.length>=1 ?(firstData?.map((data, i) => (
               <tr
                 key={i}
                 className={selectedItem === data ? "selected" : ""}
+                // style={{background:"red"}}
+                
                 onClick={() => setSelectedItem(data)}
               >
-                <td>{i + 1}</td>
+                <td >{i + 1}</td>
                 <td>{data}</td>
               </tr>
-            ))}
+            ))):(<h5>no data found in first list</h5>)
+            }
           </tbody>
         </Table>
       </div>
@@ -62,7 +71,7 @@ const TableData = () => {
         ></i>
       </div>
       <div>
-        <Table striped bordered hover>
+        <Table  bordered hover>
           <thead>
             <tr>
               <th>#</th>
@@ -70,7 +79,7 @@ const TableData = () => {
             </tr>
           </thead>
           <tbody>
-            {secondData?.map((data, i) => (
+            {secondData?.length>=1 ? (secondData?.map((data, i) => (
               <tr
                 key={i}
                 className={selectedItem === data ? "selected" : ""}
@@ -79,7 +88,8 @@ const TableData = () => {
                 <td>{i + 1}</td>
                 <td>{data}</td>
               </tr>
-            ))}
+            ))):(<h5>no data found in second list</h5>)
+            }
           </tbody>
         </Table>
       </div>
@@ -88,13 +98,3 @@ const TableData = () => {
 };
 
 export default TableData;
-
-
-
-
-
-
-
-
-
-

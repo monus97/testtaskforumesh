@@ -37,15 +37,18 @@
   }
 }
 
-.div_main{
+.div_main {
   display: flex;
   gap: 124px;
   margin: 106px 0px 0px 100px;
 }
-.arrow{
+.arrow {
   display: flex;
   justify-content: center;
   flex-direction: column;
   cursor: pointer;
-  
+}
+.selected td {
+  background-color: rgb(242 242 242) !important;
+  color: rgb(0 0 0) !important;
 }
